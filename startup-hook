@@ -72,4 +72,4 @@ fi
 # id of the device from the output of xinput, then use it to disable the
 # device
 TOUCHPAD_ID=`xinput | grep 'Synaptics TouchPad' | cut -f 2 | cut -f 2 -d =`
-xinput set-prop $TOUCHPAD_ID "Device Enabled" 0
+# xinput set-prop $TOUCHPAD_ID "Device Enabled" 0
