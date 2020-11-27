@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $(lsb_release -r | awk '{print $2}') = '16.04' ]; then
+  /bin/bash ~/.xmonad/install-xmonad
+elif [ $(lsb_release -r | awk '{print $2}') = '18.04' ]; then
+  wget -O install-xmonad-18.04 https://github.com/davidbrewer/xmonad-ubuntu-conf/blob/0823f5853ef34c6e86e59e20efab234db0661ad6/install-xmonad
+  /bin/bash ~/.xmonad/install-xmonad-18.04
+elif [ $(lsb_release -r | awk '{print $2}') = '20.04' ]; then
+  wget -O install-xmonad-18.04 https://github.com/davidbrewer/xmonad-ubuntu-conf/blob/0823f5853ef34c6e86e59e20efab234db0661ad6/install-xmonad
+  /bin/bash ~/.xmonad/install-xmonad-18.04
+fi
