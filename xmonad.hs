@@ -20,12 +20,13 @@ import qualified Data.Map as M
 import Data.Ratio ((%))
 import XMonad.Actions.CopyWindow
 import System.Exit
+import XMonad.Hooks.ManageHelpers
 
 myModMask            = mod4Mask       -- changes the mod key to "super"
 myFocusedBorderColor = "#ff0000"      -- color of focused border
 myNormalBorderColor  = "#cccccc"      -- color of inactive border
 myBorderWidth        = 1              -- width of border around windows
-myTerminal           = "gnome-terminal"   -- which terminal software to use
+myTerminal           = "terminator"   -- which terminal software to use
 myIMRosterTitle      = "Buddy List"   -- title of roster on IM workspace
 
 myTitleColor     = "#eeeeee"  -- color of window title
@@ -54,12 +55,16 @@ defaultLayouts = smartBorders(avoidStruts(
   ResizableTall 1 (3/100) (1/2) []
   ||| noBorders Full))
 
+hubLayout = ResizableTall 1 (3/100) (1/2) []
+            ||| noBorders Full
+
 chatLayout = avoidStruts(withIM (1%7) (Title myIMRosterTitle) Grid)
 
 gimpLayout = smartBorders(avoidStruts(ThreeColMid 1 (3/100) (3/4)))
 
 myLayouts =
-  onWorkspace "7:Chat" chatLayout
+  onWorkspace "2:Hub" hubLayout
+  $ onWorkspace "7:Chat" chatLayout
   $ onWorkspace "9:Pix" gimpLayout
   $ defaultLayouts
 
@@ -96,7 +101,14 @@ myManagementHooks = [
   , (className =? "Komodo IDE" <&&> resource =? "Toplevel") --> doFloat
   , (className =? "Empathy") --> doF (W.shift "7:Chat")
   , (className =? "Pidgin") --> doF (W.shift "7:Chat")
-  , (className =? "Gimp-2.8") --> doF (W.shift "9:Pix")
+  , (className =? "Gimp") --> doF (W.shift "9:Pix")
+  , (className =? "Pavucontrol") --> doF (W.shift "2:Hub")
+  , (className =? "Gnome-terminal") --> doF (W.shift "1:Term")
+  , (className =? "vlc" <&&> title =? "Playlist") --> doF (W.shift "2:Hub")
+  , (className =? "vlc") --> doF copyToAll
+  , (className =? "Gedit") --> doF (W.shift "4:Docs")
+  , (title =? "KAlarm") --> doF (W.shift "2:Hub")
+  , (title =? "Message — KAlarm") --> doF copyToAll <+> doRectFloat (W.RationalRect 0.7 0.04 0.25 0.25)
   ]
 
 numPadKeys =

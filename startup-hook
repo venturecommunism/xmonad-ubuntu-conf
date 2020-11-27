@@ -12,9 +12,20 @@
 # TRAY ICON SOFTWARE
 #
 
+camlistored &
+cammount ~/Documents &
+kalarm &
+terminator &
 gnome-terminal &
-google-chrome &
 firefox &
+pavucontrol &
+sed -i 's/playlist-visible=false/playlist-visible=true/' ~/.config/vlc/vlc-qt-interface.conf
+# whether you want to play just the one or the whole directory
+# wget --no-check-certificate -cO ~/Videos/$(tail -1 ~/Videos/wget.txt | awk '{print $1'}) $(tail -1 Videos/wget.txt | awk '{print $2}') > /dev/null 2>&1 & vlc -f ~/Videos/$(tail -1 ~/Videos/wget.txt | awk '{print $1}') &
+wget --no-check-certificate -cO ~/Videos/$(tail -1 ~/Videos/wget.txt | awk '{print $1'}) $(tail -1 ~/Videos/wget.txt | awk '{print $2}') > /dev/null 2>&1 &
+vlc -fL --no-repeat --one-instance --playlist-tree `find ~/Videos -type f ! -path '~/Videos/off-playlist/*' | sort | grep -E "\.webm$|\.flv$|\.vob$|\.ogg$|\.ogv$|\.drc$|\.gifv$|\.mng$|\.avi$|\.mov$|\.qt$|\.wmv$|\.yuv$|\.rm$|\.rmvb$|/.asf$|\.amv$|\.mp4$|\.m4v$|\.mp*$|\.m?v$|\.svi$|\.3gp$|\.flv$|\.f4v$"` &
+gedit ~/.xmonad/xmonad.hs ~/.xmonad/startup-hook &
+gimp &
 
 # Empathy chat client (-h: start hidden, -n: don't connect on launch)
 if [ -z "$(pgrep empathy)" ] ; then
