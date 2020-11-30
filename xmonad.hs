@@ -218,7 +218,7 @@ myNumberKeys =
 
 main = do
   xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
-  xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig {
+  xmonad $ withUrgencyHook NoUrgencyHook $ docks defaultConfig {
     focusedBorderColor = myFocusedBorderColor
   , normalBorderColor = myNormalBorderColor
   , terminal = myTerminal
